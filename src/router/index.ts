@@ -4,6 +4,7 @@ import Tabs from '../views/Tabs.vue'
 import Login from '../views/login.vue'
 import Home from '../views/home.vue'
 import Docs from '../views/docs.vue'
+import changePass from '../views/changePass.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -13,6 +14,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/login',
     component: Login,
+  },
+  {
+    path: '/changePass',
+    component: changePass,
   },
   {
     path: '/home',

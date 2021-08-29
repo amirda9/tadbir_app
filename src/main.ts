@@ -56,7 +56,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 // HTTP connection to the API
 const httpLink = createHttpLink({
   // You should use an absolute URL here
-  uri: 'https://tadbir.liara.run/graphql',
+  uri: 'http://192.106.100.253:8000/graphql',
 })
 
 // Cache implementation

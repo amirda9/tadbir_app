@@ -4,7 +4,7 @@
   <ion-toolbar>
     <ion-title
       class="ion-text-center"
-      style="color: white;">ورود</ion-title
+      style="color: white;">تغییر رمز</ion-title
     >
 
   </ion-toolbar>
@@ -19,14 +19,20 @@
                 <ion-col class="ion-text-center">
                     <ion-label>
                         <h2>
-                        خوش آمدید
+                        تغییر رمز
                         </h2>
                     </ion-label>
                 </ion-col>
             </ion-row>
+
+            <ion-row class="ion-justify-content-center ion-padding-horizontal">
+        <ion-col class="ion-text-left" size="12" size-lg="8">
+          <ion-input v-model="passOld" placeholder=" رمز عبور قدیمی"> </ion-input>
+        </ion-col>
+      </ion-row>
       <ion-row class="ion-justify-content-center ion-padding-horizontal">
         <ion-col class="ion-text-left" size="12" size-lg="8">
-          <ion-input v-on:keyup="key" v-model="user" placeholder="نام کاربری"> </ion-input>
+          <ion-input v-model="pass" type="password" placeholder="رمز عبور"> </ion-input>
         </ion-col>
       </ion-row>
 
@@ -37,9 +43,9 @@
         <ion-col class="ion-text-left" size="12" size-lg="8">
           <ion-input
             shape="round"
-            placeholder="رمز عبور"
+            placeholder=" تکرار رمز"
             type="password"
-            v-model="pass"
+            v-model="passNew"
           >
           </ion-input>
         </ion-col>
@@ -60,10 +66,10 @@
         <ion-row class="ion-padding ion-justify-content-center ion-padding-horizontal">
           <ion-col class="ion-text-center" size="8" size-lg="6">
             <ion-button
-            @click="auth({user:this.user,pass:this.pass})"
+            @click="CP()"
               shape="round"
               style="width: 100%; color: white; --background: #191970; text-transform: none;">
-              ورود
+              برو
             </ion-button>
           </ion-col>
         </ion-row>
@@ -77,82 +83,63 @@
 
 <script lang="ts">
 import { IonRow, IonCol,IonInput,IonCard,IonButton,IonHeader,IonToolbar,IonTitle,IonLabel,IonGrid,IonContent,IonPage } from '@ionic/vue';
-import { defineComponent } from 'vue';
+import { defineComponent,ref } from 'vue';
 import { useMutation } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
 
 import { useRouter,useRoute } from 'vue-router';
-
+// import { ref } from '@vue/composition-api'
 
 export default defineComponent({
-  name: 'Login',
+  name: 'changePass',
   components:{
 IonRow, IonCol,IonInput,IonCard,IonButton,IonHeader,IonToolbar,IonTitle,IonLabel,IonGrid,IonContent,IonPage
   },
   setup(){
+      const passOld = ref('')
+      const pass = ref('')
+      const passNew = ref('')
       const router = useRouter();
       const route = useRoute();
+    //   const amir:()console.log(pass)
     //   return { router };
-       const { mutate: auth,onDone } = useMutation(gql`
-      mutation auth ($user: String!,$pass:String!) {
-        tokenAuth (username: $user , password:$pass) {
-          token
-          user{
-      id
-      firstName
-      lastName
-      melliCode
-    }
+       const { mutate: changePasswordMutation,onDone } = useMutation(gql`
+      mutation changePasswordMutation ($currentPassword: String!,$newPassword:String!) {
+        changePasswordMutation (currentPassword: $currentPassword , newPassword:$newPassword) {
+            status
         }
       }
-    `)
+    `, )
 
 
 
     onDone(result=>{
-        console.log(result.data.tokenAuth.token)
-        // localStorage.setItem(token,result.data.tokenAuth.token)
-        localStorage.token = result.data.tokenAuth.token;
-        localStorage.id = result.data.tokenAuth.user.id;
-        localStorage.fname = result.data.tokenAuth.user.firstName
-        localStorage.lname = result.data.tokenAuth.user.lastName
-        localStorage.melliCode = result.data.tokenAuth.user.melliCode
-        router.push({ path: '/tabs/home' })
-        // router.replace()
+        console.log(result.data.changePasswordMutation.status)
+        // console.log(passOld.value)
+        if(result.data.changePasswordMutation.status==true){
+            router.push('/home')
+        }
+        
     })
 
     return{
-        auth,
+        changePasswordMutation,
         router,
         route,
+        pass,
+        passOld,passNew
     }
   },
-  data(){
-      return{
-          user:'',
-          pass:''
+  methods:{
+      CP(){
+        //   console.log(this.pass)
+        if(this.pass == this.passNew){
+        this.changePasswordMutation({currentPassword:this.passOld,newPassword:this.pass})
+        }
+        else{
+            alert("رمز عبور با تکرار آن مطابقت ندارد.")
+        }
       }
-  }
-  ,methods:{
-    key: function (evt: any) {
-     const ew = evt.key.charCodeAt(); 
-      // console.log(ew)
-      if(ew > 1000){
-        alert("لطفا زبان خود را عوض کنید")
-        this.user=""
-      }// TS will throw an error here
-      else{
-        console.log("ok") 
-      }
-    },
-login(){
-      console.log(this.user,this.pass)
-     
-
-    // return{
-    //     auth({username:this.username,password:this.pass})
-    // }
-  }
   }
   
 });
