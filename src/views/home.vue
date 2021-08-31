@@ -77,8 +77,11 @@
                 </ion-row> -->
                 <ion-row class="ion-padding-horizontal ion-padding-top" >
                     <ion-col class="ion-text-center">
-                        <ion-label style="color:white;">
-                             بیمه شده : {{melliCode}}
+                        <ion-label v-if="Asli" style="color:white;">
+                             بیمه شده : اصلی
+                        </ion-label>
+                        <ion-label v-if="!Asli" style="color:white;">
+                             بیمه شده : فرعی
                         </ion-label>
                     </ion-col>
                 </ion-row>
@@ -125,7 +128,7 @@
                     <ion-col class="ion-text-center">
                       <div v-if="item.node.personalSaghf != -1">
                         <ion-label>
-                             سقف هزینه شخصی : {{item.node.personalSaghf}} ریال
+                             سقف هزینه شخصی : {{item.node.personalSaghf.toLocaleString()}} ریال
                         </ion-label>
                         </div>
 
@@ -170,6 +173,7 @@ export default defineComponent({
       const { result,loading, error,variables } = useQuery(gql`
       query hazines($idLocal:ID!){
   user(id:$idLocal){
+    isAsli
     bimeshavanadegharardad{
       gharardad{
         code
@@ -209,9 +213,10 @@ export default defineComponent({
     const bimegar = useResult(result, null, data => data.user.bimeshavanadegharardad.gharardad.bimegar.name)
     const bimegozar = useResult(result, null, data => data.user.bimeshavanadegharardad.gharardad.bimegozar.name)
     const code = useResult(result, null, data => data.user.bimeshavanadegharardad.gharardad.code)
+    const Asli = useResult(result, null, data => data.user.isAsli)
 
     return{
-        res,loading,error,bimegar,code,bimegozar
+        res,loading,error,bimegar,code,bimegozar,Asli
     }
   },
   data(){
