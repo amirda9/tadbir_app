@@ -123,9 +123,18 @@
         </ion-row>
         <ion-row class="ion-padding" >
                     <ion-col class="ion-text-center">
+                      <div v-if="item.node.personalSaghf != -1">
                         <ion-label>
                              سقف هزینه شخصی : {{item.node.personalSaghf}} ریال
                         </ion-label>
+                        </div>
+
+                        <div v-if="item.node.personalSaghf == -1">
+                        <ion-label>
+                             سقف هزینه شخصی : نامحدود
+                        </ion-label>
+                        </div>
+
                     </ion-col>
                 </ion-row>
     </ion-card>
