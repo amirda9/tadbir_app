@@ -27,7 +27,7 @@ import { provide, h } from 'vue'
 import { DefaultApolloClient } from '@vue/apollo-composable'
 import { setContext } from 'apollo-link-context'
 
-import { ApolloClient, createHttpLink, InMemoryCache,concat,ApolloLink } from '@apollo/client/core'
+import { ApolloClient, createHttpLink, InMemoryCache,ApolloLink } from '@apollo/client/core'
 
 // import { setContext } from 'apollo-link-context'
 

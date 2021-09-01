@@ -68,7 +68,7 @@
             <ion-button
             @click="CP()"
               shape="round"
-              style="width: 100%; color: white; --background: #191970; text-transform: none;">
+              style="width: 100%; color: white; --background: #FF2626; text-transform: none;">
               برو
             </ion-button>
           </ion-col>
@@ -148,7 +148,7 @@ IonRow, IonCol,IonInput,IonCard,IonButton,IonHeader,IonToolbar,IonTitle,IonLabel
 
 <style scoped>
 ion-toolbar{
-  --background:#191970;
+  --background:#FF2626;
 }
 
 

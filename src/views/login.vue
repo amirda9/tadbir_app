@@ -62,7 +62,7 @@
             <ion-button
             @click="auth({user:this.user,pass:this.pass})"
               shape="round"
-              style="width: 100%; color: white; --background: #191970; text-transform: none;">
+              style="width: 100%; color: white; --background: #FF2626; text-transform: none;">
               ورود
             </ion-button>
           </ion-col>
@@ -161,7 +161,7 @@ login(){
 
 <style scoped>
 ion-toolbar{
-  --background:#191970;
+  --background:#FF2626;
 }
 
 

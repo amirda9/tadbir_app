@@ -175,7 +175,7 @@ export default defineComponent({
 
 <style scoped>
 ion-toolbar{
-  --background:#191970;
+  --background:#FF2626;
 }
 
 ion-content{

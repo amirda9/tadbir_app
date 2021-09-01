@@ -21,7 +21,7 @@
     </ion-row>
     <ion-row>
         <ion-col>
-            <ion-card style="--background:#87ceeb;">
+            <ion-card style="--background:#000000;">
                 <ion-row
       class="ion-justify-content-center ion-padding-horizontal ion-padding-top"
     >
@@ -92,7 +92,7 @@
             @click="$router.push('/changePass')"
               shape="round"
               size="small"
-              style="width: 100%; color: white; --background: #191970; text-transform: none;">
+              style="width: 100%; color: white; --background: #FF2626; text-transform: none;">
               تغییر رمز عبور
             </ion-button>
                     </ion-col>
@@ -246,7 +246,7 @@ export default defineComponent({
 
 <style scoped>
 ion-toolbar{
-  --background:#191970;
+  --background:#FF2626;
 }
 
 ion-content{
